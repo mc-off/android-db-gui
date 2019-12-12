@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/search_badge"
+        android:title="Search screen"
+        app:showAsAction="never"
+        ></item>
+    <item android:id="@+id/table_screen"
+        android:title="Table screen"
+        app:showAsAction="never"
+        ></item>
+    <item android:id="@+id/edit_screen"
+        android:title="Edit screen"
+        app:showAsAction="never"
+        ></item>
+    <item android:id="@+id/main_screen"
+        android:title="Main screen"
+        app:showAsAction="never"
+        ></item>
+
+
+</menu>

@@ -17,7 +17,7 @@ import com.codingwithmitch.notes.models.Note;
 import com.codingwithmitch.notes.persistence.NoteRepository;
 import com.codingwithmitch.notes.util.Utility;
 
-public class NoteActivity extends AppCompatActivity implements
+public class StudentActivity extends AppCompatActivity implements
         View.OnTouchListener,
         GestureDetector.OnGestureListener,
         GestureDetector.OnDoubleTapListener,
@@ -25,7 +25,7 @@ public class NoteActivity extends AppCompatActivity implements
         TextWatcher
 {
 
-    private static final String TAG = "NoteActivity";
+    private static final String TAG = "StudentActivity";
     private static final int EDIT_MODE_ENABLED = 1;
     private static final int EDIT_MODE_DISABLED = 0;
 

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <item android:id="@+id/search_badg"
+        android:icon="@drawable/ic_search"
+        app:showAsAction="ifRoom"
+        ></item>
+    <item android:id="@+id/delete"
+        android:title="Delete"
+        app:showAsAction="never">
+        <menu>
+            <item android:id="@+id/delete_by_id"
+                android:title="By id">
+            </item>
+            <item android:id="@+id/delete_by_name"
+                android:title="By name">
+            </item>
+        </menu>
+    </item>
+
+
+</menu>

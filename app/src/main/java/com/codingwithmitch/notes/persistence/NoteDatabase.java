@@ -8,7 +8,7 @@ import android.content.Context;
 import com.codingwithmitch.notes.models.Note;
 
 @Database(entities = {Note.class}, version = 1)
-public abstract class NoteDatabase extends RoomDatabase {
+public abstract             class NoteDatabase extends RoomDatabase {
 
     public static final String DATABASE_NAME = "notes_db";
 

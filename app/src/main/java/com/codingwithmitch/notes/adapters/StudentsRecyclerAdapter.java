@@ -16,14 +16,14 @@ import com.codingwithmitch.notes.util.Utility;
 
 import java.util.ArrayList;
 
-public class NotesRecyclerAdapter extends RecyclerView.Adapter<NotesRecyclerAdapter.ViewHolder> {
+public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecyclerAdapter.ViewHolder> {
 
-    private static final String TAG = "NotesRecyclerAdapter";
+    private static final String TAG = "StudentsRecyclerAdapter";
 
     private ArrayList<Note> mNotes = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
 
-    public NotesRecyclerAdapter(ArrayList<Note> mNotes, OnNoteListener onNoteListener) {
+    public StudentsRecyclerAdapter(ArrayList<Note> mNotes, OnNoteListener onNoteListener) {
         this.mNotes = mNotes;
         this.mOnNoteListener = onNoteListener;
     }

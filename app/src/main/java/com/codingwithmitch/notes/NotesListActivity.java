@@ -1,6 +1,8 @@
 package com.codingwithmitch.notes;
 
+import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
@@ -10,10 +12,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.support.v7.widget.helper.ItemTouchHelper;
-import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.codingwithmitch.notes.adapters.NotesRecyclerAdapter;
+import com.codingwithmitch.notes.adapters.StudentsRecyclerAdapter;
 import com.codingwithmitch.notes.models.Note;
 import com.codingwithmitch.notes.persistence.NoteRepository;
 import com.codingwithmitch.notes.util.VerticalSpacingItemDecorator;
@@ -22,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotesListActivity extends AppCompatActivity implements
-        NotesRecyclerAdapter.OnNoteListener,
+        StudentsRecyclerAdapter.OnNoteListener,
         FloatingActionButton.OnClickListener
 {
 
@@ -33,8 +38,11 @@ public class NotesListActivity extends AppCompatActivity implements
 
     // vars
     private ArrayList<Note> mNotes = new ArrayList<>();
-    private NotesRecyclerAdapter mNoteRecyclerAdapter;
+    private StudentsRecyclerAdapter mNoteRecyclerAdapter;
     private NoteRepository mNoteRepository;
+
+    final String[] cities = {"Москва", "Самара", "Вологда", "Волгоград", "Саратов", "Воронеж"};
+
 
 
     @Override
@@ -43,7 +51,10 @@ public class NotesListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_notes_list);
         mRecyclerView = findViewById(R.id.recyclerView);
 
+        findViewById(R.id.searchButton).setOnClickListener(this);
+
         findViewById(R.id.fab).setOnClickListener(this);
+
 
         initRecyclerView();
         mNoteRepository = new NoteRepository(this);
@@ -51,7 +62,30 @@ public class NotesListActivity extends AppCompatActivity implements
 //        insertFakeNotes();
 
         setSupportActionBar((Toolbar)findViewById(R.id.notes_toolbar));
-        setTitle("Notes");
+        setTitle("Students");
+
+        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
+        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cities);
+        // Определяем разметку для использования при выборе элемента
+        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Применяем адаптер к элементу spinner
+        spinner.setAdapter(adapter);
+
+        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+                // Получаем выбранный объект
+                String item = (String)parent.getItemAtPosition(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        };
+        spinner.setOnItemSelectedListener(itemSelectedListener);
     }
 
 
@@ -87,22 +121,33 @@ public class NotesListActivity extends AppCompatActivity implements
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         mRecyclerView.addItemDecoration(itemDecorator);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);
-        mNoteRecyclerAdapter = new NotesRecyclerAdapter(mNotes, this);
+        mNoteRecyclerAdapter = new StudentsRecyclerAdapter(mNotes, this);
         mRecyclerView.setAdapter(mNoteRecyclerAdapter);
     }
 
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, NoteActivity.class);
+        Intent intent = new Intent(this, StudentActivity.class);
         intent.putExtra("selected_note", mNotes.get(position));
         startActivity(intent);
     }
 
     @Override
     public void onClick(View view) {
-        Intent intent = new Intent(this, NoteActivity.class);
-        startActivity(intent);
+
+        switch (view.getId()){
+            case R.id.fab: {
+                Intent intent = new Intent(this, StudentActivity.class);
+                startActivity(intent);
+                break;
+            }
+
+            case R.id.searchButton: {
+                Toast.makeText(getApplicationContext(),"Select ",Toast.LENGTH_SHORT).show();
+            }
+        }
+
     }
 
     private void deleteNote(Note note) {
@@ -120,7 +165,25 @@ public class NotesListActivity extends AppCompatActivity implements
 
         @Override
         public void onSwiped(RecyclerView.ViewHolder viewHolder, int direction) {
-            deleteNote(mNotes.get(viewHolder.getAdapterPosition()));
+
+            final int adapterPostition = viewHolder.getAdapterPosition();
+
+            new AlertDialog.Builder(NotesListActivity.this)
+                    .setTitle("Delete entry")
+                    .setMessage("Are you sure you want to delete this entry?")
+
+                    // Specifying a listener allows you to take an action before dismissing the dialog.
+                    // The dialog is automatically dismissed when a dialog button is clicked.
+                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                        public void onClick(DialogInterface dialog, int which) {
+                            deleteNote(mNotes.get(adapterPostition));
+                        }
+                    })
+
+                    // A null listener allows the button to dismiss the dialog and take no further action.
+                    .setNegativeButton(android.R.string.no, null)
+                    .setIcon(android.R.drawable.ic_dialog_alert)
+                    .show();
         }
     };
 }
