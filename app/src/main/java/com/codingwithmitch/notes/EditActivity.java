@@ -33,22 +33,25 @@ public class EditActivity extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        switch (item.getItemId()){
-            case (R.id.search_screen):{
+        switch (item.getItemId()) {
+            case (R.id.search_badg): {
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
             }
-            case (R.id.table_screen):{
+            break;
+            case (R.id.table_screen): {
                 Intent intent = new Intent(this, TableActivity.class);
                 startActivity(intent);
             }
-            case (R.id.main_screen):{
+            break;
+            case (R.id.main_screen): {
                 Intent intent = new Intent(this, DbListActivity.class);
                 startActivity(intent);
             }
-
+            break;
             default:
-                Toast.makeText(getApplicationContext(),"Default", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Default", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }

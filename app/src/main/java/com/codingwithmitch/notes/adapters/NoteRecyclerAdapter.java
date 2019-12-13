@@ -16,14 +16,14 @@ import com.codingwithmitch.notes.util.Utility;
 
 import java.util.ArrayList;
 
-public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecyclerAdapter.ViewHolder> {
+public class NoteRecyclerAdapter extends RecyclerView.Adapter<NoteRecyclerAdapter.ViewHolder> {
 
-    private static final String TAG = "StudentsRecyclerAdapter";
+    private static final String TAG = "NoteRecyclerAdapter";
 
     private ArrayList<Note> mNotes = new ArrayList<>();
     private OnNoteListener mOnNoteListener;
 
-    public StudentsRecyclerAdapter(ArrayList<Note> mNotes, OnNoteListener onNoteListener) {
+    public NoteRecyclerAdapter(ArrayList<Note> mNotes, OnNoteListener onNoteListener) {
         this.mNotes = mNotes;
         this.mOnNoteListener = onNoteListener;
     }
@@ -62,8 +62,8 @@ public class StudentsRecyclerAdapter extends RecyclerView.Adapter<StudentsRecycl
 
         public ViewHolder(View itemView, OnNoteListener onNoteListener) {
             super(itemView);
-            timestamp = itemView.findViewById(R.id.note_timestamp);
-            title = itemView.findViewById(R.id.note_title);
+            timestamp = itemView.findViewById(R.id.node_title);
+            title = itemView.findViewById(R.id.node_title);
             mOnNoteListener = onNoteListener;
 
             itemView.setOnClickListener(this);

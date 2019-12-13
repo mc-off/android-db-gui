@@ -1,5 +1,6 @@
 package com.codingwithmitch.notes;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
@@ -18,6 +19,8 @@ import android.support.v7.widget.Toolbar;
 public class SearchActivity extends AppCompatActivity implements View.OnClickListener{
 
     static final String[] PARAMS = {"id", "name"};
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,22 +71,34 @@ public class SearchActivity extends AppCompatActivity implements View.OnClickLis
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        System.out.println(item.getTitle() + "click");
         switch (item.getItemId()){
             case (R.id.main_screen):{
+                System.out.println("Main screen");
                 Intent intent = new Intent(this, DbListActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                 startActivity(intent);
             }
+            break;
             case (R.id.table_screen):{
+                System.out.println("Table screen");
                 Intent intent = new Intent(this, TableActivity.class);
-                startActivity(intent);
-            }
-            case (R.id.edit_screen):{
-                Intent intent = new Intent(this, EditActivity.class);
-                startActivity(intent);
-            }
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 
+                startActivity(intent);
+            }
+            break;
+            case (R.id.edit_screen):{
+                System.out.println("Edit screen");
+                Intent intent = new Intent(this, EditActivity.class);
+                intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+
+                startActivity(intent);
+            }
+            break;
             default:
-                Toast.makeText(getApplicationContext(),"Default", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getApplicationContext(),"Default", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }

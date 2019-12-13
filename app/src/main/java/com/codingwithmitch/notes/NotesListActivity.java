@@ -18,7 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.codingwithmitch.notes.adapters.StudentsRecyclerAdapter;
+import com.codingwithmitch.notes.adapters.NoteRecyclerAdapter;
 import com.codingwithmitch.notes.models.Note;
 import com.codingwithmitch.notes.persistence.NoteRepository;
 import com.codingwithmitch.notes.util.VerticalSpacingItemDecorator;
@@ -27,7 +27,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class NotesListActivity extends AppCompatActivity implements
-        StudentsRecyclerAdapter.OnNoteListener,
+        NoteRecyclerAdapter.OnNoteListener,
         FloatingActionButton.OnClickListener
 {
 
@@ -38,7 +38,7 @@ public class NotesListActivity extends AppCompatActivity implements
 
     // vars
     private ArrayList<Note> mNotes = new ArrayList<>();
-    private StudentsRecyclerAdapter mNoteRecyclerAdapter;
+    private NoteRecyclerAdapter mNoteRecyclerAdapter;
     private NoteRepository mNoteRepository;
 
     final String[] cities = {"Москва", "Самара", "Вологда", "Волгоград", "Саратов", "Воронеж"};
@@ -63,29 +63,6 @@ public class NotesListActivity extends AppCompatActivity implements
 
         setSupportActionBar((Toolbar)findViewById(R.id.notes_toolbar));
         setTitle("Students");
-
-        final Spinner spinner = (Spinner) findViewById(R.id.spinner);
-        // Создаем адаптер ArrayAdapter с помощью массива строк и стандартной разметки элемета spinner
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, cities);
-        // Определяем разметку для использования при выборе элемента
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Применяем адаптер к элементу spinner
-        spinner.setAdapter(adapter);
-
-        AdapterView.OnItemSelectedListener itemSelectedListener = new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-                // Получаем выбранный объект
-                String item = (String)parent.getItemAtPosition(position);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        };
-        spinner.setOnItemSelectedListener(itemSelectedListener);
     }
 
 
@@ -121,7 +98,7 @@ public class NotesListActivity extends AppCompatActivity implements
         VerticalSpacingItemDecorator itemDecorator = new VerticalSpacingItemDecorator(10);
         mRecyclerView.addItemDecoration(itemDecorator);
         new ItemTouchHelper(itemTouchHelperCallback).attachToRecyclerView(mRecyclerView);
-        mNoteRecyclerAdapter = new StudentsRecyclerAdapter(mNotes, this);
+        mNoteRecyclerAdapter = new NoteRecyclerAdapter(mNotes, this);
         mRecyclerView.setAdapter(mNoteRecyclerAdapter);
     }
 

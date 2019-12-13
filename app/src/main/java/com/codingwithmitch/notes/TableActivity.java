@@ -22,6 +22,9 @@ public class TableActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         toolbar.setTitle("Table");
+
+        toolbar.setSubtitle(getIncomingIntent());
+
     }
 
     @Override
@@ -34,22 +37,40 @@ public class TableActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()){
-            case (R.id.search_screen):{
+            case (R.id.search_badg):{
                 Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
             }
+            break;
             case (R.id.edit_screen):{
                 Intent intent = new Intent(this, EditActivity.class);
                 startActivity(intent);
             }
+            break;
             case (R.id.main_screen):{
                 Intent intent = new Intent(this, DbListActivity.class);
                 startActivity(intent);
             }
-
+            break;
             default:
                 Toast.makeText(getApplicationContext(),"Default", Toast.LENGTH_SHORT).show();
+                break;
         }
         return true;
     }
+
+    private String getIncomingIntent() {
+        try {
+            if (getIntent().hasExtra("dbName")) {
+                return getIntent().getStringExtra("dbName");
+            }
+            else
+                return "hse";
+        }
+        catch (NullPointerException e){
+            e.getMessage();
+        }
+        return "hse";
+    }
+
 }
