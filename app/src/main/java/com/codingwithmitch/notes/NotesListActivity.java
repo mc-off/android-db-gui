@@ -51,7 +51,7 @@ public class NotesListActivity extends AppCompatActivity implements
         setContentView(R.layout.activity_notes_list);
         mRecyclerView = findViewById(R.id.recyclerView);
 
-        findViewById(R.id.searchButton).setOnClickListener(this);
+        //findViewById(R.id.searchButton).setOnClickListener(this);
 
         findViewById(R.id.fab).setOnClickListener(this);
 
@@ -120,9 +120,6 @@ public class NotesListActivity extends AppCompatActivity implements
                 break;
             }
 
-            case R.id.searchButton: {
-                Toast.makeText(getApplicationContext(),"Select ",Toast.LENGTH_SHORT).show();
-            }
         }
 
     }
@@ -130,7 +127,6 @@ public class NotesListActivity extends AppCompatActivity implements
     private void deleteNote(Note note) {
         mNotes.remove(note);
         mNoteRecyclerAdapter.notifyDataSetChanged();
-
         mNoteRepository.deleteNoteTask(note);
     }
 

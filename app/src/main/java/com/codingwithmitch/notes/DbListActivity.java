@@ -3,6 +3,7 @@ package com.codingwithmitch.notes;
 
 import android.app.AlertDialog;
 import android.arch.lifecycle.Observer;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -23,13 +24,16 @@ import android.widget.Toast;
 import com.codingwithmitch.notes.adapters.DbAdapter;
 import com.codingwithmitch.notes.adapters.DbRecyclerAdapter;
 import com.codingwithmitch.notes.adapters.NoteRecyclerAdapter;
+import com.codingwithmitch.notes.models.Database;
 import com.codingwithmitch.notes.models.Note;
 import com.codingwithmitch.notes.persistence.NoteRepository;
 import com.codingwithmitch.notes.util.VerticalSpacingItemDecorator;
+import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -82,6 +86,8 @@ public class DbListActivity extends AppCompatActivity implements
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
+        //Call<List<String>> listCall = App.getApi().getAllDatabase();
+
     }
 
 
@@ -108,15 +114,34 @@ public class DbListActivity extends AppCompatActivity implements
     }
 
         private void insertOne(){
-            String name = "title" + mdataBases.size()+2;
-            mdataBases.add(name);
+            String databaseName = "title" + mdataBases.size()+2;
+            mdataBases.add(databaseName);
             mDbRecyclerAdapter.notifyDataSetChanged();
-            jsonPlaceHolderApi.addDb(name);
+            Call<ResponseBody> call = jsonPlaceHolderApi.send(databaseName);
+
+            call.enqueue(new Callback<ResponseBody>() {
+                @Override
+                public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                    if (!response.isSuccessful()) {
+                        Toast.makeText(DbListActivity.this, "Code: " + response.code(), Toast.LENGTH_LONG).show();
+                        return;
+                    }
+                    Toast.makeText(DbListActivity.this, "Code: " + response.code(), Toast.LENGTH_LONG).show();
+                }
+
+                @Override
+                public void onFailure(Call<ResponseBody> call, Throwable t) {
+                    Toast.makeText(DbListActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+
 
     }
 
     private void update(ArrayList<String> arrayList){
-        mdataBases = arrayList;
+        mdataBases.clear();
+        mdataBases.addAll(arrayList);
+        //mdataBases = arrayList;
         mDbRecyclerAdapter.notifyDataSetChanged();
     }
 
@@ -144,9 +169,28 @@ public class DbListActivity extends AppCompatActivity implements
 
     }
 
-    private void deleteDb(String name) {
-        mdataBases.remove(name);
+    private void deleteDb(String databaseName) {
+        mdataBases.remove(databaseName);
+
         mDbRecyclerAdapter.notifyDataSetChanged();
+
+        Call<ResponseBody> call = jsonPlaceHolderApi.deleteDb(databaseName);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
+                if (!response.isSuccessful()) {
+                    Toast.makeText(DbListActivity.this, "Code: " + response.code(), Toast.LENGTH_LONG).show();
+                    return;
+                }
+                Toast.makeText(DbListActivity.this, "Code: " + response.code(), Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Toast.makeText(DbListActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
 
         // mNoteRepository.deleteNoteTask(note);
     }
@@ -219,11 +263,21 @@ public class DbListActivity extends AppCompatActivity implements
             }
             break;
             case (R.id.plus_db): {
-               // insertOne();
+                insertOne();
             }
             break;
-            case (R.id.main_screen): {
-                Intent intent = new Intent(this, DbListActivity.class);
+            case (R.id.edit_screen_main): {
+                Intent intent = new Intent(this, EditActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case (R.id.table_screen_main): {
+                Intent intent = new Intent(this, TableActivity.class);
+                startActivity(intent);
+            }
+            break;
+            case (R.id.search_screen_main): {
+                Intent intent = new Intent(this, SearchActivity.class);
                 startActivity(intent);
             }
             break;
@@ -232,5 +286,9 @@ public class DbListActivity extends AppCompatActivity implements
                 break;
         }
         return true;
+    }
+
+    public Context getContext() {
+        return DbListActivity.this;
     }
 }

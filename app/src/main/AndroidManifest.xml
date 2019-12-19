@@ -28,4 +28,6 @@
         <activity android:name=".StudentActivity" />
     </application>
 
+
+
 </manifest>

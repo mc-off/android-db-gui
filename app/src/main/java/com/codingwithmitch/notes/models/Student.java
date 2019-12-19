@@ -5,43 +5,30 @@ import java.time.LocalDateTime;
 public class Student {
 
     private Long id;
-    private String name;
-    private String surname;
-    private String passport;
-    private String phone;
-    private Long externalId;
-    private LocalDateTime created;
-    private LocalDateTime updated;
+    private boolean phone;
+    private String university;
+    private Long personId;
+
+    public Student(Long id, boolean phone, String university, Long personId) {
+        this.id = id;
+        this.phone = phone;
+        this.university = university;
+        this.personId = personId;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public String getPassport() {
-        return passport;
-    }
-
-    public String getPhone() {
+    public boolean isPhone() {
         return phone;
     }
 
-    public Long getExternalId() {
-        return externalId;
+    public String getUniversity() {
+        return university;
     }
 
-    public LocalDateTime getCreated() {
-        return created;
-    }
-
-    public LocalDateTime getUpdated() {
-        return updated;
+    public Long getPersonId() {
+        return personId;
     }
 }
