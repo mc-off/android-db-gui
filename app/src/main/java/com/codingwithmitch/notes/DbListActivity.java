@@ -86,6 +86,8 @@ public class DbListActivity extends AppCompatActivity implements
 
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
+        getPosts();
+
         //Call<List<String>> listCall = App.getApi().getAllDatabase();
 
     }
@@ -135,8 +137,9 @@ public class DbListActivity extends AppCompatActivity implements
                 }
             });
 
+            getPosts();
 
-    }
+        }
 
     private void update(ArrayList<String> arrayList){
         mdataBases.clear();
@@ -158,7 +161,7 @@ public class DbListActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, TableActivity.class);
+        Intent intent = new Intent(this, StudentTableActivity.class);
         intent.putExtra("dbName", mdataBases.get(position));
         System.out.println("Pederau mdataBases.get(position)" + mdataBases.get(position));
         startActivity(intent);
@@ -191,7 +194,6 @@ public class DbListActivity extends AppCompatActivity implements
                 Toast.makeText(DbListActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
         // mNoteRepository.deleteNoteTask(note);
     }
 

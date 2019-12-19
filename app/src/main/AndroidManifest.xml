@@ -26,6 +26,8 @@
         </activity>
         <activity android:name=".NotesListActivity" />
         <activity android:name=".StudentActivity" />
+        <activity android:name=".StudentTableActivity" />
+
     </application>
 
 
