@@ -10,18 +10,14 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.codingwithmitch.notes.R;
-import com.codingwithmitch.notes.models.Note;
-import com.codingwithmitch.notes.util.Utility;
 
 import java.util.ArrayList;
 
 public class DbRecyclerAdapter extends RecyclerView.Adapter<DbRecyclerAdapter.ViewHolder> {
 
-    private static final String TAG = "NoteRecyclerAdapter";
+    private static final String TAG = "DbRecyclerAdapter";
 
-    TextView title;
-
-    private ArrayList<String> dataBases = new ArrayList<>();
+    private ArrayList<String> dataBases;
     private OnDbListener mOnDbListener;
 
     public DbRecyclerAdapter(ArrayList<String> dataBases, OnDbListener mOnDbListener) {

@@ -2,15 +2,13 @@ package com.codingwithmitch.notes;
 
 
 import android.app.AlertDialog;
-import android.arch.lifecycle.Observer;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -21,14 +19,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.codingwithmitch.notes.adapters.DbAdapter;
 import com.codingwithmitch.notes.adapters.DbRecyclerAdapter;
-import com.codingwithmitch.notes.adapters.NoteRecyclerAdapter;
-import com.codingwithmitch.notes.models.Database;
-import com.codingwithmitch.notes.models.Note;
-import com.codingwithmitch.notes.persistence.NoteRepository;
+import com.codingwithmitch.notes.persistence.JsonPlaceHolderApi;
 import com.codingwithmitch.notes.util.VerticalSpacingItemDecorator;
-import com.google.gson.JsonObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -56,10 +49,6 @@ public class DbListActivity extends AppCompatActivity implements
     Retrofit retrofit;
 
     JsonPlaceHolderApi jsonPlaceHolderApi;
-    //private NoteRepository mNoteRepository;
-
-    // final String[] cities = {"Москва", "Самара", "Вологда", "Волгоград", "Саратов", "Воронеж"};
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -68,10 +57,6 @@ public class DbListActivity extends AppCompatActivity implements
         mRecyclerView = findViewById(R.id.recycle_view);
 
         initRecyclerView();
-        //mNoteRepository = new NoteRepository(this);
-        //retrieveNotes();
-
-        //insertFakeNotes();
 
         setSupportActionBar((Toolbar) findViewById(R.id.notes_toolbar));
         setTitle("DbList");
@@ -87,32 +72,6 @@ public class DbListActivity extends AppCompatActivity implements
         jsonPlaceHolderApi = retrofit.create(JsonPlaceHolderApi.class);
 
         getPosts();
-
-        //Call<List<String>> listCall = App.getApi().getAllDatabase();
-
-    }
-
-
-    private void retrieveNotes() {
-        /*mNoteRepository.retrieveNotesTask().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                if(mNotes.size() > 0){
-                    mNotes.clear();
-                }
-                if(notes != null){
-                    mNotes.addAll(notes);
-                }
-                mNoteRecyclerAdapter.notifyDataSetChanged();
-            }
-        });*/
-    }
-
-    private void insertFakeNotes() {
-        for (int i = 0; i < 10; i++) {
-            mdataBases.add("title" + i);
-        }
-        mDbRecyclerAdapter.notifyDataSetChanged();
     }
 
         private void insertOne(){
@@ -144,7 +103,6 @@ public class DbListActivity extends AppCompatActivity implements
     private void update(ArrayList<String> arrayList){
         mdataBases.clear();
         mdataBases.addAll(arrayList);
-        //mdataBases = arrayList;
         mDbRecyclerAdapter.notifyDataSetChanged();
     }
 
@@ -161,7 +119,7 @@ public class DbListActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, MainActivity.class);
+        Intent intent = new Intent(this, TableListActivity.class);
         intent.putExtra("dbName", mdataBases.get(position));
         System.out.println("Pederau mdataBases.get(position)" + mdataBases.get(position));
         startActivity(intent);
@@ -194,7 +152,6 @@ public class DbListActivity extends AppCompatActivity implements
                 Toast.makeText(DbListActivity.this,t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        // mNoteRepository.deleteNoteTask(note);
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {

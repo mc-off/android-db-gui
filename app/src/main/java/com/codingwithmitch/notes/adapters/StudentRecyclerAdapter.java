@@ -16,9 +16,9 @@ import java.util.ArrayList;
 
 public class StudentRecyclerAdapter extends RecyclerView.Adapter<StudentRecyclerAdapter.ViewHolder> {
 
-    private static final String TAG = "PersonRecyclerAdapter";
+    private static final String TAG = "StudentRecyclerAdapter";
 
-    private ArrayList<Student> studentArrayList = new ArrayList<>();
+    private ArrayList<Student> studentArrayList;
     private OnStudentListener mOnStudentListener;
 
     public StudentRecyclerAdapter(ArrayList<Student> studentArrayList, OnStudentListener mOnStudentListener) {

@@ -1,9 +1,7 @@
-package com.codingwithmitch.notes;
+package com.codingwithmitch.notes.persistence;
 
-import com.codingwithmitch.notes.models.Database;
 import com.codingwithmitch.notes.models.Person;
 import com.codingwithmitch.notes.models.Student;
-import com.google.gson.JsonObject;
 
 import java.util.List;
 
@@ -11,8 +9,6 @@ import okhttp3.ResponseBody;
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
-import retrofit2.http.Field;
-import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.PATCH;
 import retrofit2.http.POST;
@@ -21,16 +17,8 @@ import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface JsonPlaceHolderApi {
-    @FormUrlEncoded
-    @POST("database")
-    Call<Database> addDb(@Body Database database);
-
     @GET("database")
     Call<List<String>> getAllDatabase();
-
-    @FormUrlEncoded
-    @DELETE("database")
-    Call<Database> deleteDbTwo(@Field("database") String dbName);
 
     @POST("database")
     Call<ResponseBody> send (

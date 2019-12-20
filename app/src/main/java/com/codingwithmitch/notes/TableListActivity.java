@@ -1,18 +1,17 @@
 package com.codingwithmitch.notes;
 
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
 import android.widget.Toast;
 
-import com.codingwithmitch.notes.persistence.NoteRepository;
+import com.codingwithmitch.notes.persistence.JsonPlaceHolderApi;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -21,7 +20,7 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class TableListActivity extends AppCompatActivity implements View.OnClickListener {
 
     Retrofit retrofit;
 
@@ -32,12 +31,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_table_list);
 
         Toolbar toolbar = findViewById(R.id.notes_toolbar5);
 
         setSupportActionBar(toolbar);
-//        insertFakeNotes();
+
         findViewById(R.id.students).setOnClickListener(this);
 
         findViewById(R.id.persons).setOnClickListener(this);

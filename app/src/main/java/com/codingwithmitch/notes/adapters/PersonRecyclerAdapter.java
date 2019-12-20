@@ -18,7 +18,7 @@ public class PersonRecyclerAdapter extends RecyclerView.Adapter<PersonRecyclerAd
 
     private static final String TAG = "PersonRecyclerAdapter";
 
-    private ArrayList<Person> personArrayList = new ArrayList<>();
+    private ArrayList<Person> personArrayList;
     private OnPersonListener mOnPersonListener;
 
     public PersonRecyclerAdapter(ArrayList<Person> personArrayList, OnPersonListener mOnPersonListener) {

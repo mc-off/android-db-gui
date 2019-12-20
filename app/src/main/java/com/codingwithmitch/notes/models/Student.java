@@ -1,7 +1,5 @@
 package com.codingwithmitch.notes.models;
 
-import java.time.LocalDateTime;
-
 public class Student {
 
     private Long id;
@@ -18,10 +16,6 @@ public class Student {
 
     public Long getId() {
         return id;
-    }
-
-    public boolean isPhone() {
-        return phone;
     }
 
     public String getUniversity() {

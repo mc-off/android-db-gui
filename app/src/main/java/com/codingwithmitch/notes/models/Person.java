@@ -1,7 +1,6 @@
 package com.codingwithmitch.notes.models;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 @SuppressWarnings("serial")
 public class Person implements Serializable

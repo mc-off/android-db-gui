@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.codingwithmitch.notes.adapters.StudentRecyclerAdapter;
 import com.codingwithmitch.notes.models.Person;
 import com.codingwithmitch.notes.models.Student;
+import com.codingwithmitch.notes.persistence.JsonPlaceHolderApi;
 import com.codingwithmitch.notes.util.VerticalSpacingItemDecorator;
 
 import java.util.ArrayList;
@@ -80,32 +81,7 @@ public class StudentTableActivity extends AppCompatActivity implements
         getPosts();
     }
 
-    private void retrieveNotes() {
-        /*mNoteRepository.retrieveNotesTask().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                if(mNotes.size() > 0){
-                    mNotes.clear();
-                }
-                if(notes != null){
-                    mNotes.addAll(notes);
-                }
-                mNoteRecyclerAdapter.notifyDataSetChanged();
-            }
-        });*/
-    }
-
-//    private void insertFakeNotes() {
-//        for (int i = 0; i < 10; i++) {
-//            studentArrayList.add("title" + i);
-//        }
-//        mStudentRecycleAdapter.notifyDataSetChanged();
-//    }
-
-
     private void insertOne(Long personId){
-       // String databaseName = "title" + studentArrayList.size()+2;
-
         try {
             if (personId==null){
                 throw new Exception();
@@ -163,10 +139,7 @@ public class StudentTableActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteClick(int position) {
-        /*Intent intent = new Intent(this, TableActivity.class);
-        intent.putExtra("dbName", studentArrayList.get(position));
-        System.out.println("Pederau studentArrayList.get(position)" + studentArrayList.get(position));
-        startActivity(intent);*/
+        Toast.makeText(getApplicationContext(),"Click in item number: "+position,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -222,8 +195,6 @@ public class StudentTableActivity extends AppCompatActivity implements
                 Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        //getPosts();
-        // mNoteRepository.deleteNoteTask(note);
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -297,11 +268,6 @@ public class StudentTableActivity extends AppCompatActivity implements
                 getRandomPersonId();
             }
             break;
-            case (R.id.search): {
-                Intent intent = new Intent(this, EditActivity.class);
-                startActivity(intent);
-            }
-            break;
             case (R.id.delete_all): {
                 deleteAllStudents();
             }
@@ -346,8 +312,6 @@ public class StudentTableActivity extends AppCompatActivity implements
                     Toast.makeText(getApplicationContext(),"Connection error",Toast.LENGTH_SHORT).show();
                     return;
                 }
-                //System.out.println(response.body().toArray().toString());
-
                 ArrayList<Long> idArrayList = new ArrayList<>();
                 List<Person> people = response.body();
 

@@ -12,7 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".TableListActivity"></activity>
         <activity android:name=".EditActivity" />
         <activity android:name=".TableActivity" />
         <activity android:name=".DbListActivity">
@@ -23,8 +23,6 @@
             </intent-filter>
         </activity>
         <activity android:name=".SearchActivity"></activity>
-        <activity android:name=".NotesListActivity" />
-        <activity android:name=".StudentActivity" />
         <activity android:name=".StudentTableActivity" />
     </application>
 

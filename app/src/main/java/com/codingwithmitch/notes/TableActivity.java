@@ -4,10 +4,10 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -18,9 +18,9 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.codingwithmitch.notes.adapters.DbRecyclerAdapter;
 import com.codingwithmitch.notes.adapters.PersonRecyclerAdapter;
 import com.codingwithmitch.notes.models.Person;
+import com.codingwithmitch.notes.persistence.JsonPlaceHolderApi;
 import com.codingwithmitch.notes.util.VerticalSpacingItemDecorator;
 
 import java.util.ArrayList;
@@ -79,31 +79,7 @@ public class TableActivity extends AppCompatActivity implements
         getPosts();
     }
 
-    private void retrieveNotes() {
-        /*mNoteRepository.retrieveNotesTask().observe(this, new Observer<List<Note>>() {
-            @Override
-            public void onChanged(@Nullable List<Note> notes) {
-                if(mNotes.size() > 0){
-                    mNotes.clear();
-                }
-                if(notes != null){
-                    mNotes.addAll(notes);
-                }
-                mNoteRecyclerAdapter.notifyDataSetChanged();
-            }
-        });*/
-    }
-
-//    private void insertFakeNotes() {
-//        for (int i = 0; i < 10; i++) {
-//            personArrayList.add("title" + i);
-//        }
-//        mPersonRecycleAdapter.notifyDataSetChanged();
-//    }
-
     private void insertOne(){
-       // String databaseName = "title" + personArrayList.size()+2;
-
         Person person = new Person(
                 "Name"+personArrayList.size(),
                 "Surname"+personArrayList.size(),
@@ -136,7 +112,6 @@ public class TableActivity extends AppCompatActivity implements
     private void update(ArrayList<Person> arrayList){
         personArrayList.clear();
         personArrayList.addAll(arrayList);
-        //personArrayList = arrayList;
         mPersonRecycleAdapter.notifyDataSetChanged();
     }
 
@@ -188,8 +163,6 @@ public class TableActivity extends AppCompatActivity implements
             }
         });
         getPosts();
-
-        // mNoteRepository.deleteNoteTask(note);
     }
 
     ItemTouchHelper.SimpleCallback itemTouchHelperCallback = new ItemTouchHelper.SimpleCallback(0, ItemTouchHelper.RIGHT) {
@@ -307,7 +280,7 @@ public class TableActivity extends AppCompatActivity implements
 
         mPersonRecycleAdapter.notifyDataSetChanged();
 
-        Call<ResponseBody> call = jsonPlaceHolderApi.deleteAllStudents(databaseName);
+        Call<ResponseBody> call = jsonPlaceHolderApi.deleteAllPersons(databaseName);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
@@ -324,8 +297,6 @@ public class TableActivity extends AppCompatActivity implements
                 Toast.makeText(getApplicationContext(),t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-        //getPosts();
-        // mNoteRepository.deleteNoteTask(note);
-    }
+      }
 
 }
