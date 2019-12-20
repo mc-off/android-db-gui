@@ -1,8 +1,10 @@
 package com.codingwithmitch.notes.models;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 
-public class Person
+@SuppressWarnings("serial")
+public class Person implements Serializable
 
 {
     private Long id;
@@ -51,5 +53,17 @@ public class Person
 
     public String getUpdated() {
         return updated;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public void setSurname(String surname) {
+        this.surname = surname;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
     }
 }

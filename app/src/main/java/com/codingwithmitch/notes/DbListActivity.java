@@ -161,7 +161,7 @@ public class DbListActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteClick(int position) {
-        Intent intent = new Intent(this, StudentTableActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra("dbName", mdataBases.get(position));
         System.out.println("Pederau mdataBases.get(position)" + mdataBases.get(position));
         startActivity(intent);

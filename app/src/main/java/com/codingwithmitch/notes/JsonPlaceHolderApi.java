@@ -14,7 +14,9 @@ import retrofit2.http.DELETE;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.PATCH;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -40,14 +42,30 @@ public interface JsonPlaceHolderApi {
             @Query("database") String database
     );
 
+    @PATCH("database")
+    Call<ResponseBody> clearDb (
+            @Query("database") String database
+    );
+
     @GET("persons")
     Call<List<Person>> getAllPersons (
                     @Query("database") String database
             );
 
+    @GET("persons/search")
+    Call<List<Person>> getSeachPersons (
+            @Query("database") String database,
+            @Query("searchString") String search
+    );
 
     @POST("persons")
     Call<ResponseBody> postPerson (
+            @Query("database") String database,
+            @Body Person person
+    );
+
+    @PUT("persons")
+    Call<ResponseBody> updatePerson (
             @Query("database") String database,
             @Body Person person
     );

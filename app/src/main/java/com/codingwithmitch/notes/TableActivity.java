@@ -153,10 +153,11 @@ public class TableActivity extends AppCompatActivity implements
 
     @Override
     public void onNoteClick(int position) {
-        /*Intent intent = new Intent(this, TableActivity.class);
-        intent.putExtra("dbName", personArrayList.get(position));
+        Intent intent = new Intent(this, EditActivity.class);
+        intent.putExtra("Person", personArrayList.get(position));
+        intent.putExtra("dbName", databaseName);
         System.out.println("Pederau personArrayList.get(position)" + personArrayList.get(position));
-        startActivity(intent);*/
+        startActivity(intent);
     }
 
     @Override
@@ -262,12 +263,14 @@ public class TableActivity extends AppCompatActivity implements
                 insertOne();
             }
             break;
-            case (R.id.search): {
-                Intent intent = new Intent(this, EditActivity.class);
+            case (R.id.search_items): {
+                Intent intent = new Intent(this, SearchActivity.class);
+                intent.putExtra("dbName", databaseName);
                 startActivity(intent);
             }
             break;
             case (R.id.delete_all): {
+                deleteAllPersons();
             }
             break;
             default:

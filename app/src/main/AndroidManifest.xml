@@ -4,16 +4,16 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:usesCleartextTraffic="true"
-        android:theme="@style/AppTheme">
-        <activity android:name=".EditActivity"></activity>
+        android:theme="@style/AppTheme"
+        android:usesCleartextTraffic="true">
+        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".EditActivity" />
         <activity android:name=".TableActivity" />
         <activity android:name=".DbListActivity">
             <intent-filter>
@@ -22,14 +22,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".SearchActivity">
-        </activity>
+        <activity android:name=".SearchActivity"></activity>
         <activity android:name=".NotesListActivity" />
         <activity android:name=".StudentActivity" />
         <activity android:name=".StudentTableActivity" />
-
     </application>
-
-
 
 </manifest>

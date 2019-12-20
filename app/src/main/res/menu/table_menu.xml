@@ -16,8 +16,14 @@
     </item>
 
     <item android:id="@+id/update_db"
+    android:icon="@drawable/ic_refresh_black_24dp"
+    android:title="Db update"
+    app:showAsAction="ifRoom">
+    </item>
+
+    <item android:id="@+id/search_items"
         android:icon="@drawable/ic_refresh_black_24dp"
-        android:title="Db update"
+        android:title="Search"
         app:showAsAction="ifRoom">
     </item>
 </menu>
